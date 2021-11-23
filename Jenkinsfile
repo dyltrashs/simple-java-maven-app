@@ -30,7 +30,7 @@ pipeline {
                 withSonarQubeEnv('SonarQube') {
                     sh 'mvn sonar:sonar'
                 }
-            }east
+            }
         }
         stage('Await Quality Gateway') {
             steps {
