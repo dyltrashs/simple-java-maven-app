@@ -1,12 +1,6 @@
 pipeline {
     agent any
-    environment {
-        COMMIT_HASH = "${sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()}"
-        AWS_ID = credentials('aws-id')
-        IMG_NAME = "user-service"
-        REPO_URL = credentials('service-user')
-    }
-
+    
     // tools {
     //     SonarQube Scanner "Local Sonar Scanner"
     // }
