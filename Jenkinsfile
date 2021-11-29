@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     // tools {
     //     SonarQube Scanner "Local Sonar Scanner"
     // }
@@ -27,7 +27,9 @@ pipeline {
         }
         stage('Await Quality Gateway') {
             steps {
-                waitForQualityGate abortPipeline: true
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
     }
