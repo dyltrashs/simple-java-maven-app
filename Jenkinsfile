@@ -7,10 +7,9 @@ pipeline {
         REPO_URL = credentials('service-user')
     }
 
-    tools {
-        // Install the Maven version configured as "M3" and add it to the path.
-        maven "M3"
-    }
+    // tools {
+    //     SonarQube Scanner "Local Sonar Scanner"
+    // }
 
     stages {
         stage('Clean target') {
