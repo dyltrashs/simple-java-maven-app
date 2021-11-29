@@ -36,22 +36,6 @@ pipeline {
                 waitForQualityGate abortPipeline: true
             }
         }
-        stage("Docker Build") {
-            steps {
-                echo "Docker Build...."
-                sh 'aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin ${AWS_ID}.dkr.ecr.us-west-1.amazonaws.com'
-                sh "docker build --tag ${IMG_NAME}:${COMMIT_HASH} ."
-                sh 'docker tag ${IMG_NAME}:${COMMIT_HASH} ${AWS_ID}.dkr.ecr.us-west-1.amazonaws.com/${REPO_URL}:${COMMIT_HASH}'
-                echo "Docker Push..."
-                sh 'docker push ${AWS_ID}.dkr.ecr.us-west-1.amazonaws.com/${REPO_URL}:${COMMIT_HASH}'
-            }
-        }
-        stage("Deploy") {
-            steps {
-                echo "Deploying cloudformation.."
-                sh "awsv2 cloudformation deploy --stack-name UserMsStack --template-file ./ecs.yaml --parameter-overrides ApplicationName=${IMG_NAME} ApplicationEnvironment=dev ECRRepositoryUri=635496629433.dkr.ecr.us-west-1.amazonaws.com/user-service --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM --region us-west-1"
-            }
-        }
     }
     post {
         always {
