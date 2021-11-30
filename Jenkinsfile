@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    // tools {
-    //     SonarQube Scanner "Local Sonar Scanner"
-    // }
+    tools {
+        maven "M3"
+    }
 
     stages {
         stage('Clean target') {
